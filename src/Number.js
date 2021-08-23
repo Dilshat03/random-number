@@ -12,23 +12,16 @@ const Number = () => {
     const [man, setMan] = useState(localStorage.getItem("person") || 0)
     const [prozent1, setProzent1] = useState(0)
     const [prozent2, setProzent2] = useState(0)
-    const [mode, setMode] = useState('')
+    // const [mode, setMode] = useState('')
+    const [isTrue, setIsTrue] = useState('')
 
 
     const addInput = (e) => {
         setGuess(e.target.value)
     }
     const addCheck = () => {
-        setFreeAttempt(freeAttempt - 1)
-    }
-    useEffect(() => {
-        localStorage.setItem("computer", comp)
-        localStorage.setItem("person", man)
-    }, [message])
-
-    useEffect(() => {
         if (+guess > 0 && +guess <= 10) {
-            if (number !== +guess && freeAttempt === 0) {
+            if (number !== +guess && freeAttempt -1=== 0) {
                 setMessage('Вы проиграли!')
                 setComp(+comp + 1)
                 setProzent1((comp / man) * 100)
@@ -38,10 +31,12 @@ const Number = () => {
                 setProzent2((man / comp) * 100)
             }
         }
-    }, [freeAttempt])
-    // setFreeAttempt(0)
+        setFreeAttempt(freeAttempt - 1)
 
+        localStorage.setItem("computer", comp)
+        localStorage.setItem("person", man)
 
+    }
     const addNew = () => {
         setFreeAttempt(3)
         setMessage('')
@@ -50,20 +45,21 @@ const Number = () => {
     }
     const reset = () => {
         localStorage.clear()
-        localStorage.setItem('computer',0)
+        setMan(0)
+        setComp(0)
     }
-    const addMode = () => {
-        if (+guess > number) {
-            setMode('Перебор')
-        } else if (+guess < number) {
-            setMode('Недобор')
-        }
-    }
+    // const addMode = () => {
+    //     if (+guess > number) {
+    //         setMode('Перебор')
+    //     } else if (+guess < number) {
+    //         setMode('Недобор')
+    //     }
+    // }
     return (
         <div>
             <h1>Угадай число с 3-х поппыток</h1>
             <input type="number" placeholder='Введите число от 0 до 10' value={guess} onChange={addInput}/>
-            <button onClick={addCheck} disabled={!freeAttempt}>Check</button>
+            <button onClick={addCheck} disabled={isTrue}>Check</button>
             <button onClick={addNew}>New game</button>
             <button onClick={reset}>Сброс очков</button>
             {
@@ -75,11 +71,7 @@ const Number = () => {
             <div>Процент побед: <br/>
                 <span>Компьютер:{prozent1}%</span> <br/><span>Игрок:{prozent2}%</span>
             </div>
-            <div>Подсказка:{mode}</div>
-            <div className="form-check form-switch">
-                <input onClick={addMode} className="form-check-input" type="checkbox" id="inset"/>
-                <label defaultChecked={addMode} onClick={addMode} className="form-check-label">Inset</label>
-            </div>
+            {/*<div>Подсказка:{mode}</div>*/}
 
         </div>
     );
