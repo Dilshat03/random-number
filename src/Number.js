@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 
 const Number = () => {
@@ -13,7 +13,7 @@ const Number = () => {
     const [prozent1, setProzent1] = useState(0)
     const [prozent2, setProzent2] = useState(0)
     // const [mode, setMode] = useState('')
-    const [isTrue, setIsTrue] = useState('')
+    // const [isTrue, setIsTrue] = useState('')
 
 
     const addInput = (e) => {
@@ -59,7 +59,7 @@ const Number = () => {
         <div>
             <h1>Угадай число с 3-х поппыток</h1>
             <input type="number" placeholder='Введите число от 0 до 10' value={guess} onChange={addInput}/>
-            <button onClick={addCheck} disabled={isTrue}>Check</button>
+            <button onClick={addCheck}>Check</button>
             <button onClick={addNew}>New game</button>
             <button onClick={reset}>Сброс очков</button>
             {
